@@ -1,10 +1,9 @@
 const Note = require('../model/note.model');
 const uuidv1 = require("UUID/V1")
 
-// Create and Save a new Note
+
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.content) {
+      if (!req.body.content) {
         return res.status(400).send({
             message: "Note content can not be empty"
         });
@@ -17,7 +16,7 @@ exports.create = (req, res) => {
             return res.status(409).send();
         }
 
-        // Create a Note
+        
         const note = new Note({
             _id: uuidv1(),
             title: req.body.title || "Untitled Note",
@@ -25,7 +24,7 @@ exports.create = (req, res) => {
             email: req.body.email
         });
 
-        // Save Note in the database
+       
         note.save()
             .then(data => {
                 res.send(data);
@@ -37,7 +36,7 @@ exports.create = (req, res) => {
     })
 };
 
-// Retrieve and return all notes from the database.
+
 exports.findAll = (req, res) => {
     Note.find()
         .then(notes => {
@@ -78,7 +77,6 @@ exports.update = (req, res) => {
         });
     }
 
-    // Find note and update it with the request body
     Note.findByIdAndUpdate(req.params.noteId, {
         title: req.body.title || "Untitled Note",
         content: req.body.content
