@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 
 const NoteSchema = mongoose.Schema({
     _id: String,
-    title: String,
-    content: String,
-    email: String
+    email: String,
+    first: String,
+    last: String,
+    phone: String
 }, {
-    timestamps: true
-});
+        timestamps: true
+    });
 
 
 

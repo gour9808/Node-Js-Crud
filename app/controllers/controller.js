@@ -3,9 +3,9 @@ const uuidv1 = require("UUID/V1")
 
 
 exports.create = (req, res) => {
-      if (!req.body.content) {
+      if (!req.body.first || !req.body.last || !req.body.phone) {
         return res.status(400).send({
-            message: "Note content can not be empty"
+            message: "Empty Fields u r sending"
         });
     }
 
@@ -19,9 +19,10 @@ exports.create = (req, res) => {
         
         const note = new Note({
             _id: uuidv1(),
-            title: req.body.title || "Untitled Note",
-            content: req.body.content,
-            email: req.body.email
+            email: req.body.email,
+            first: req.body.first,
+            last: req.body.last,
+            phone: req.body.phone
         });
 
        
@@ -69,11 +70,13 @@ exports.findOne = (req, res) => {
         });
 };
 
+
+
 exports.update = (req, res) => {
 
-    if (!req.body.content && !req.body._id) {
+    if (!req.body.first && !req.body._id && !req.body.last && !req.body.phone) {
         return res.status(400).send({
-            message: "Note content can not be empty"
+            message: "Wrong data"
         });
     }
 
